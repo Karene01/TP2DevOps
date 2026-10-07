@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.27.1 AS build-stage
+FROM golang:1.27.1 
 
 # création du répertoire de travail 
 WORKDIR /app
@@ -18,10 +18,6 @@ COPY *.go ./
 RUN go build -o /docker-gs-ping
 
 COPY ./public public
-
-FROM debian AS final-stage
-
-COPY --from=build-stage /docker-gs-ping /docker-gs-ping
 
 # lancement de l'application
 CMD ["/docker-gs-ping"]
