@@ -19,5 +19,6 @@ RUN go build -o /docker-gs-ping
 
 COPY ./public public
 
+
 # lancement de l'application
 CMD ["/docker-gs-ping"]

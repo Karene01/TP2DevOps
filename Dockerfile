@@ -17,11 +17,12 @@ COPY *.go ./
 # compilation de l'application
 RUN go build -o /docker-gs-ping
 
-COPY ./public public
+#COPY ./public public
 
 FROM debian AS final-stage
 
 COPY --from=build-stage /docker-gs-ping /docker-gs-ping
-
+COPY ./public public
+EXPOSE 3000
 # lancement de l'application
 CMD ["/docker-gs-ping"]
