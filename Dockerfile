@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.27.1
+FROM golang:1.27.1 
 
 # création du répertoire de travail 
 WORKDIR /app
@@ -15,7 +15,9 @@ RUN go mod download
 COPY *.go ./
 
 # compilation de l'application
-RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-gs-ping
+RUN go build -o /docker-gs-ping
+
+COPY ./public public
 
 # lancement de l'application
 CMD ["/docker-gs-ping"]
