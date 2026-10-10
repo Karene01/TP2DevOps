@@ -1,9 +1,11 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.27.1 AS build-stage
-
+FROM golang:1.27.1
 # création du répertoire de travail 
 WORKDIR /app
+
+#installation de Air
+RUN go install github.com/air-verse/air@latest
 
 # copie des fichiers de dépendances
 COPY go.mod go.sum ./
@@ -11,18 +13,7 @@ COPY go.mod go.sum ./
 # les modules go sont installés dans l'image
 RUN go mod download
 
-# copie du code source de l'application
-COPY *.go ./
+COPY . .
 
-# compilation de l'application
-RUN go build -o /docker-gs-ping
-
-#COPY ./public public
-
-FROM debian AS final-stage
-
-COPY --from=build-stage /docker-gs-ping /docker-gs-ping
-COPY ./public public
-EXPOSE 3000
-# lancement de l'application
-CMD ["/docker-gs-ping"]
+#lancer air
+CMD ["air", "-c", ".air.toml"]
