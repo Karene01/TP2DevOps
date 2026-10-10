@@ -70,6 +70,7 @@ func HealthHandler(rw http.ResponseWriter, req *http.Request) {
 		rw.Write([]byte(err.Error()))
 	} else {
 		rw.WriteHeader(http.StatusOK)
+		rw.Write([]byte("OK, air fonctionne"))
 	}
 }
 
