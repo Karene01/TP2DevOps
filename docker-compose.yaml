@@ -3,6 +3,8 @@ services:
     build: .
     ports:
       - "${APP_PORT}:3000"
+    volumes:
+      - .:/app 
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
