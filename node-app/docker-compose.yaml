@@ -1,0 +1,10 @@
+services:
+  node-app:
+    build: .
+    ports:
+      - "3001:3000" #pour ne pas entrer en conflit avec l'app Go
+    volumes:
+      - .:/app
+      - /app/node_modules # n'ecrase pas les modules du conteneur par ceux du host
+    environment:
+      - NODE_ENV=development
